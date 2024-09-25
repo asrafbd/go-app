@@ -1,0 +1,17 @@
+---
+- name: Create S3 bucket named airport-images
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: Create S3 bucket
+      amazon.aws.s3_bucket:
+        name: airport-images
+        region: 'us-east-1'
+        state: present
+        aws_access_key: "{{aws_key}}"
+        aws_secret_key: "{{aws_secret}}"
+      register: s3_bucket
+    - debug:
+        var: s3_bucket
