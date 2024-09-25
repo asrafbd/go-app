@@ -1,0 +1,12 @@
+go mod init go-docker-app
+
+go mod tidy
+
+go run main.go
+
+$ curl http://localhost:8080/
+
+docker build -t newgoapp .
+
+docker tag newgoapp:latest asrafbd/newgoapp:v1.0
+docker push asrafbd/newgoapp:v1.0
