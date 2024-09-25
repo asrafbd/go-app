@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: newgoapp
+  name: newgoapp-v1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: newgoapp
+  strategy: {}
+  template:
+    metadata:
+      name: newgoapp-v1
+      labels:
+        version: v1
+        app: newgoapp
+    spec:
+      containers:
+      - image: asrafbd/newgoapp:v1.0
+        name: newgoapp
+        ports:
+        - containerPort: 8080
