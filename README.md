@@ -53,86 +53,15 @@ $ docker push asrafbd/airports_api:v1.0
 
 $ vi newgoapp-deployment.yaml
 
-apiVersion: apps/v1
-
-kind: Deployment
-
-metadata:
-
-  labels:
-  
-    app: newgoapp
-    
-  name: newgoapp-v1
-  
-spec:
-
-  replicas: 2
-  
-  selector:
-  
-    matchLabels:
-    
-      app: newgoapp
-      
-  strategy: {}
-  
-  template:
-  
-    metadata:
-    
-      name: newgoapp-v1
-      
-      labels:
-      
-        version: v1
-        
-        app: newgoapp
-        
-    spec:
-    
-      containers:
-      
-      - image: asrafbd/airports_api:v1.0
-      
-        name: newgoapp
-        
-        ports:
-        
-        - containerPort: 8080
 $ kubectl apply -f newgoapp-deployment.yaml
 
 deployment.apps/newgoapp-v1 created
 
 $ vi newgoapp-svc.yaml
 
-apiVersion: v1
+$ kubectl apply -f newgoapp-svc.yaml
 
-kind: Service
-
-metadata:
-
-  labels:
-  
-    app: newgoapp
-    
-  name: newgoapp-v1
-  
-spec:
-
-  ports:
-  
-  '- port: 80
-    
-    protocol: TCP
-    
-    targetPort: 8080
-    
-  selector:
-  
-    app: newgoapp
-    
-  type: LoadBalancer
+service/newgoapp-v1 created
 
 ## 5. Use API gateway Create routing rules to send 20% of traffic to the `/airports_v2` endpoint.
 
