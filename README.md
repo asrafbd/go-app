@@ -133,4 +133,9 @@ spec:
     app: newgoapp
     
   type: LoadBalancer
-  
+
+## 5. Use API gateway Create routing rules to send 20% of traffic to the `/airports_v2` endpoint.
+
+kubectl apply -f newgoapp-ingress-canary.yaml
+
+## 6. CI/CD Pipeline with Jenkinsfile
