@@ -1,0 +1,49 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: newgoapp-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: api.airports.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: newgoapp-svc
+            port:
+              number: 8080
+      - path: /airports
+        pathType: Prefix
+        backend:
+          service:
+            name: newgoapp-svc
+            port:
+              number: 8080
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: newgoapp-ingress-canary
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-weight: "20"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: api.airports.local
+    http:
+      paths:
+      - path: /airports_v2
+        pathType: Prefix
+        backend:
+          service:
+            name: newgoapp-v2-svc
+            port:
+              number: 8080
