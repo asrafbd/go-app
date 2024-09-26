@@ -139,3 +139,5 @@ spec:
 kubectl apply -f newgoapp-ingress-canary.yaml
 
 ## 6. CI/CD Pipeline with Jenkinsfile
+
+Need to create a Pipeline project on a Jenkins server and point to the Jenkinsfile in a GitHub repository.
